@@ -18,6 +18,12 @@ public class Duke {
             if (userinput.equals("bye")) {
                 break;
             }
+            else if (userinput.equals("list")) {
+                for (int i = 0; i < task_num; i++) {
+                    System.out.println("    " + Integer.toString(i+1) + ". " + tasks[i]);
+                }
+                continue;
+            }
             tasks[task_num] = userinput;
             task_num++;
 
