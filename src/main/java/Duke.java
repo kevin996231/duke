@@ -9,7 +9,8 @@ public class Duke {
         //                + "| |_| | |_| |   <  __/\n"
         //                + "|____/ \\__,_|_|\\_\\___|\n";
         //        System.out.println("Hello from\n" + logo);
-        System.out.println("    Hello! I'm Duke\n    What can I do for you?");
+        print("Hello! I'm Duke");
+        print("What can I do for you?");
         Scanner input = new Scanner(System.in);
         Task tasks[] = new Task[100];
         int taskNum = 0;
@@ -19,25 +20,27 @@ public class Duke {
                 break;
             } else if (userInput.equals("list")) {
                 for (int i = 0; i < taskNum; i++) {
-                    System.out.println("    " + Integer.toString(i + 1) + ".[" +
+                    print(Integer.toString(i + 1) + ".[" +
                             tasks[i].getStatusIcon() + "] " + tasks[i].description);
                 }
             } else if (userInput.split(" ")[0].equals("done")){
                 String stringNumber = userInput.split(" ")[1];
                 Integer number = Integer.valueOf(stringNumber);
                 tasks[number - 1].markAsDone();
-                System.out.println("    Nice! I've marked this task as done:");
-                System.out.println("      [" +
-                        tasks[number - 1].getStatusIcon() + "] " +tasks[number - 1].description);
+                print("Nice! I've marked this task as done:");
+                print("  [" + tasks[number - 1].getStatusIcon() + "] " +tasks[number - 1].description);
             } else {
                 tasks[taskNum] = new Task(userInput);
                 taskNum++;
-                System.out.println("    added: " + userInput);
+                print("added: " + userInput);
             }
 
         }
-        System.out.println("    Bye. Hope to see you again soon!");
+        print("Bye. Hope to see you again soon!");
 
 
+    }
+    private static void print(String input) {
+        System.out.println("    " + input);
     }
 }
