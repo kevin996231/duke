@@ -101,10 +101,11 @@ public class Duke {
         }
         return s;
     }
+
     private static void save() {
         try {
             PrintWriter writer = new PrintWriter("./data/duke.txt");
-            for (int i = 0; i < taskNum; i++){
+            for (int i = 0; i < taskNum; i++) {
                 String profile = tasks[i].getProfile();
                 writer.println(profile);
             }
@@ -113,6 +114,7 @@ public class Duke {
             print("No such file.");
         }
     }
+
     private static void printAddedClass() {
         print("Got it. I've added this task:");
         print("  " + tasks[taskNum].getDescription());
