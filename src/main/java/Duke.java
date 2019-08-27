@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
 public class Duke {
-    /** main. */
+
+
     static int taskNum = 0;
     static Task[] tasks = new Task[100];
+    /** main. */
+
     public static void main(String[] args) {
         //        String logo = " ____        _        \n"
         //                + "|  _ \\ _   _| | _____ \n"
@@ -39,7 +42,7 @@ public class Duke {
                     print("Nice! I've marked this task as done:");
                     print("  " + tasks[number - 1].getDescription());
                 } else if (inputSplit[0].equals("todo")) {
-                    for (int i = Math.max(inputSplit.length - 2,2); i < inputSplit.length ; i++) {
+                    for (int i = Math.max(inputSplit.length - 2,2); i < inputSplit.length; i++) {
                         description += " " + inputSplit[i];
                     }
                     tasks[taskNum] = new Todo(description);
@@ -58,12 +61,14 @@ public class Duke {
 
 
     }
+
     private static void printAddedClass() {
         print("Got it. I've added this task:");
         print("  " + tasks[taskNum].getDescription());
         taskNum++;
-        print("Now you have "+taskNum+" tasks in the list.");
+        print("Now you have " + taskNum + " tasks in the list.");
     }
+
     private static void print(String input) {
         System.out.println("    " + input);
     }
