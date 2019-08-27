@@ -18,4 +18,8 @@ public class Task {
     public String getDescription() {
         return  "[" + this.getStatusIcon() + "] " + this.description; //return tick or X symbols
     }
+
+    public String getProfile() {
+        return this.getStatusIcon() + " | " + this.description;
+    }
 }

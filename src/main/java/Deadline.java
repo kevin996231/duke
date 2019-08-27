@@ -11,4 +11,8 @@ public class Deadline extends Task {
     public String getDescription() {
         return "[D]" + super.getDescription() + " (by: " + time + ")";
     }
+    @Override
+    public String getProfile() {
+        return "D" + " | " + super.getProfile() + " | " + this.time;
+    }
 }

@@ -11,4 +11,9 @@ public class Event extends Task {
     public String getDescription() {
         return "[E]" + super.getDescription() + " (at: " + time + ")";
     }
+
+    @Override
+    public String getProfile() {
+        return "E" + " | " + super.getProfile() + " | " + this.time;
+    }
 }
