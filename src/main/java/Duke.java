@@ -1,7 +1,8 @@
 import java.util.Scanner;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class Duke {
-
 
     static int taskNum = 0;
     static Task[] tasks = new Task[100];
@@ -17,7 +18,6 @@ public class Duke {
         print("Hello! I'm Duke");
         print("What can I do for you?");
         Scanner input = new Scanner(System.in);
-
 
         while (true) {
             try {
@@ -73,6 +73,7 @@ public class Duke {
                     } else {
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
                     }
+                    save();
                 }
             } catch (DukeException e) {
                 print(e.message);
@@ -100,7 +101,18 @@ public class Duke {
         }
         return s;
     }
-    
+    private static void save() {
+        try {
+            PrintWriter writer = new PrintWriter("./data/duke.txt");
+            for (int i = 0; i < taskNum; i++){
+                String profile = tasks[i].getProfile();
+                writer.println(profile);
+            }
+            writer.close();
+        } catch (IOException e) {
+            print("No such file.");
+        }
+    }
     private static void printAddedClass() {
         print("Got it. I've added this task:");
         print("  " + tasks[taskNum].getDescription());
