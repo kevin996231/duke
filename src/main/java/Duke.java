@@ -2,6 +2,8 @@ import java.util.Scanner;
 
 public class Duke {
     /** main. */
+    static int taskNum = 0;
+    static Task[] tasks = new Task[100];
     public static void main(String[] args) {
         //        String logo = " ____        _        \n"
         //                + "|  _ \\ _   _| | _____ \n"
@@ -12,8 +14,8 @@ public class Duke {
         print("Hello! I'm Duke");
         print("What can I do for you?");
         Scanner input = new Scanner(System.in);
-        Task[] tasks = new Task[100];
-        int taskNum = 0;
+
+
         while (true) {
             String userInput = input.nextLine();
             if (userInput.equals("bye")) {
@@ -25,7 +27,7 @@ public class Duke {
                             + tasks[i].getDescription());
                 }
             } else {
-                String[] inputSplit = userInput.split(" ");
+                String[] inputSplit = userInput.split("\\s+");
                 String description = inputSplit[1];
                 for (int i = 2; i < inputSplit.length - 2; i++) {
                     description += " " + inputSplit[i];
@@ -37,28 +39,17 @@ public class Duke {
                     print("Nice! I've marked this task as done:");
                     print("  " + tasks[number - 1].getDescription());
                 } else if (inputSplit[0].equals("todo")) {
-                    for (int i = inputSplit.length - 2; i < inputSplit.length ; i++) {
-                        if (i == 1)
-                            continue;
+                    for (int i = Math.max(inputSplit.length - 2,2); i < inputSplit.length ; i++) {
                         description += " " + inputSplit[i];
                     }
                     tasks[taskNum] = new Todo(description);
-                    print("Got it. I've added this task:");
-                    print("  " + tasks[taskNum].getDescription());
-                    taskNum++;
-                    print("Now you have "+taskNum+" tasks in the list.");
+                    printAddedClass();
                 } else if (inputSplit[0].equals("event")) {
                     tasks[taskNum] = new Event(description,inputSplit[inputSplit.length - 1]);
-                    print("Got it. I've added this task:");
-                    print("  " + tasks[taskNum].getDescription());
-                    taskNum++;
-                    print("Now you have "+taskNum+" tasks in the list.");
+                    printAddedClass();
                 } else if (inputSplit[0].equals("deadline")) {
                     tasks[taskNum] = new Deadline(description,inputSplit[inputSplit.length - 1]);
-                    print("Got it. I've added this task:");
-                    print("  " + tasks[taskNum].getDescription());
-                    taskNum++;
-                    print("Now you have "+taskNum+" tasks in the list.");
+                    printAddedClass();
                 }
             }
 
@@ -67,7 +58,12 @@ public class Duke {
 
 
     }
-
+    private static void printAddedClass() {
+        print("Got it. I've added this task:");
+        print("  " + tasks[taskNum].getDescription());
+        taskNum++;
+        print("Now you have "+taskNum+" tasks in the list.");
+    }
     private static void print(String input) {
         System.out.println("    " + input);
     }
