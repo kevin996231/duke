@@ -19,20 +19,47 @@ public class Duke {
             if (userInput.equals("bye")) {
                 break;
             } else if (userInput.equals("list")) {
+                print("Here are the tasks in your list:");
                 for (int i = 0; i < taskNum; i++) {
-                    print(Integer.toString(i + 1) + ".["
-                            + tasks[i].getStatusIcon() + "] " + tasks[i].description);
+                    print(Integer.toString(i + 1) + "."
+                            + tasks[i].getDescription());
                 }
-            } else if (userInput.split(" ")[0].equals("done")) {
-                String stringNumber = userInput.split(" ")[1];
-                Integer number = Integer.valueOf(stringNumber);
-                tasks[number - 1].markAsDone();
-                print("Nice! I've marked this task as done:");
-                print("  [" + tasks[number - 1].getStatusIcon() + "] " + tasks[number - 1].description);
             } else {
-                tasks[taskNum] = new Task(userInput);
-                taskNum++;
-                print("added: " + userInput);
+                String[] inputSplit = userInput.split(" ");
+                String description = inputSplit[1];
+                for (int i = 2; i < inputSplit.length - 2; i++) {
+                    description += " " + inputSplit[i];
+                }
+                if (inputSplit[0].equals("done")) {
+                    String stringNumber = inputSplit[1];
+                    Integer number = Integer.valueOf(stringNumber);
+                    tasks[number - 1].markAsDone();
+                    print("Nice! I've marked this task as done:");
+                    print("  " + tasks[number - 1].getDescription());
+                } else if (inputSplit[0].equals("todo")) {
+                    for (int i = inputSplit.length - 2; i < inputSplit.length ; i++) {
+                        if (i == 1)
+                            continue;
+                        description += " " + inputSplit[i];
+                    }
+                    tasks[taskNum] = new Todo(description);
+                    print("Got it. I've added this task:");
+                    print("  " + tasks[taskNum].getDescription());
+                    taskNum++;
+                    print("Now you have "+taskNum+" tasks in the list.");
+                } else if (inputSplit[0].equals("event")) {
+                    tasks[taskNum] = new Event(description,inputSplit[inputSplit.length - 1]);
+                    print("Got it. I've added this task:");
+                    print("  " + tasks[taskNum].getDescription());
+                    taskNum++;
+                    print("Now you have "+taskNum+" tasks in the list.");
+                } else if (inputSplit[0].equals("deadline")) {
+                    tasks[taskNum] = new Deadline(description,inputSplit[inputSplit.length - 1]);
+                    print("Got it. I've added this task:");
+                    print("  " + tasks[taskNum].getDescription());
+                    taskNum++;
+                    print("Now you have "+taskNum+" tasks in the list.");
+                }
             }
 
         }
