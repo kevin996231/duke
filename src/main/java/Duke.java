@@ -46,9 +46,9 @@ public class Duke {
 
                         String stringNumber = inputSplit[1];
                         Integer number;
-                        try{
+                        try {
                             number = Integer.valueOf(stringNumber);
-                        } catch(NumberFormatException e) {
+                        } catch (NumberFormatException e) {
                             throw new DukeException("Index of task must be an integer.");
                         }
 
@@ -101,6 +101,7 @@ public class Duke {
         }
         print("Bye. Hope to see you again soon!");
     }
+
     private static int find(String[] input,String key) {
         for (int i = 0; i < input.length; i++) {
             if (input[i].equals(key)) {
