@@ -38,15 +38,23 @@ public class Duke {
                     }
                 } else {
                     String[] inputSplit = userInput.split("\\s+");
-                    if (inputSplit[0].equals("done")) {
+                    if (inputSplit[0].equals("done") || inputSplit[0].equals("delete")) {
                         String stringNumber = inputSplit[1];
                         Integer number = Integer.valueOf(stringNumber);
                         if (number > tasks.size() || number < 1) {
                             throw new DukeException("This task doesn't exist.");
                         }
-                        tasks.get(number - 1).markAsDone();
-                        print("Nice! I've marked this task as done:");
-                        print("  " + tasks.get(number - 1).getDescription());
+                        if (inputSplit[0].equals("done")) {
+                            tasks.get(number - 1).markAsDone();
+                            print("Nice! I've marked this task as done:");
+                            print("  " + tasks.get(number - 1).getDescription());
+                        } else {
+                            tasks.get(number - 1).markAsDone();
+                            print("Noted. I've removed this task:");
+                            print("  " + tasks.get(number - 1).getDescription());
+                            tasks.remove(tasks.get(number - 1));
+                            print("Now you have " + tasks.size() + " tasks in the list.");
+                        }
                     } else if (inputSplit[0].equals("todo")) {
                         if (inputSplit.length == 1) {
                             throw new DukeException("The description of a todo cannot be empty.");
