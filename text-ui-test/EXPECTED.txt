@@ -1,6 +1,19 @@
-Hello from
- ____        _
-|  _ \ _   _| | _____
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+    Hello! I'm Duke
+    What can I do for you?
+    Got it. I've added this task:
+      [T][X] 123
+    Now you have 1 tasks in the list.
+    Got it. I've added this task:
+      [T][X] 456
+    Now you have 2 tasks in the list.
+    Got it. I've added this task:
+      [E][X] dinner (by: Sun Sep 03 18:00:00 CST 19)
+    Now you have 3 tasks in the list.
+    Nice! I've marked this task as done:
+      [T][V] 456
+    Noted. I've removed this task:
+      [T][X] 123
+    Now you have 2 tasks in the list.
+    Here are the tasks in your list:
+    1.[T][V] 456
+    2.[E][X] dinner (by: Sun Sep 03 18:00:00 CST 19)

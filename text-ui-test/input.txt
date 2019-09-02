@@ -1,0 +1,6 @@
+todo 123
+todo 456
+event dinner /at 3/9/19 1800
+done 2
+delete 1
+list
