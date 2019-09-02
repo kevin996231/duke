@@ -90,6 +90,23 @@ public class Duke {
                         String time = stringCompose(inputSplit, breakpoint + 1, inputSplit.length - 1);
                         tasks.add(new Deadline(description, time));
                         printAddedClass();
+                    } else if (inputSplit[0].equals("find")) {
+                        Integer count = 0;
+                        if (inputSplit.length != 2) {
+                            throw new DukeException("Please search exactly one keyword.");
+                        }
+                        for (int i = 0; i < tasks.size(); i++) {
+                            if (tasks.get(i).getDescription().contains(inputSplit[1])) {
+                                count += 1;
+                                if (count == 1) {
+                                    print("Here are the matching tasks in your list:");
+                                }
+                                print(Integer.toString(count) + "." + tasks.get(i).getDescription());
+                            }
+                        }
+                        if (count == 0) {
+                            print("Sorry. No tasks are found.");
+                        }
                     } else {
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
                     }
