@@ -1,6 +1,7 @@
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.lang.NumberFormatException;
 import java.util.ArrayList;
 
 
@@ -39,8 +40,18 @@ public class Duke {
                 } else {
                     String[] inputSplit = userInput.split("\\s+");
                     if (inputSplit[0].equals("done") || inputSplit[0].equals("delete")) {
+                        if (inputSplit.length != 2) {
+                            throw new DukeException("Wrong format.");
+                        }
+
                         String stringNumber = inputSplit[1];
-                        Integer number = Integer.valueOf(stringNumber);
+                        Integer number;
+                        try{
+                            number = Integer.valueOf(stringNumber);
+                        } catch(NumberFormatException e) {
+                            throw new DukeException("Index of task must be an integer.");
+                        }
+
                         if (number > tasks.size() || number < 1) {
                             throw new DukeException("This task doesn't exist.");
                         }
@@ -49,7 +60,6 @@ public class Duke {
                             print("Nice! I've marked this task as done:");
                             print("  " + tasks.get(number - 1).getDescription());
                         } else {
-                            tasks.get(number - 1).markAsDone();
                             print("Noted. I've removed this task:");
                             print("  " + tasks.get(number - 1).getDescription());
                             tasks.remove(tasks.get(number - 1));
