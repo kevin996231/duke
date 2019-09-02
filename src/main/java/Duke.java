@@ -1,11 +1,13 @@
 import java.util.Scanner;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 
 public class Duke {
 
-    static int taskNum = 0;
-    static Task[] tasks = new Task[100];
+
+    static ArrayList<Task> tasks = new ArrayList<>();
     /** main. */
 
     public static void main(String[] args) {
@@ -26,31 +28,31 @@ public class Duke {
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
-                    if (taskNum == 0) {
+                    if (tasks.size() == 0) {
                         throw new DukeException("There are no tasks.");
                     }
                     print("Here are the tasks in your list:");
-                    for (int i = 0; i < taskNum; i++) {
+                    for (int i = 0; i < tasks.size(); i++) {
                         print(Integer.toString(i + 1) + "."
-                                + tasks[i].getDescription());
+                                + tasks.get(i).getDescription());
                     }
                 } else {
                     String[] inputSplit = userInput.split("\\s+");
                     if (inputSplit[0].equals("done")) {
                         String stringNumber = inputSplit[1];
                         Integer number = Integer.valueOf(stringNumber);
-                        if (number > taskNum || number < 1) {
+                        if (number > tasks.size() || number < 1) {
                             throw new DukeException("This task doesn't exist.");
                         }
-                        tasks[number - 1].markAsDone();
+                        tasks.get(number - 1).markAsDone();
                         print("Nice! I've marked this task as done:");
-                        print("  " + tasks[number - 1].getDescription());
+                        print("  " + tasks.get(number - 1).getDescription());
                     } else if (inputSplit[0].equals("todo")) {
                         if (inputSplit.length == 1) {
                             throw new DukeException("The description of a todo cannot be empty.");
                         }
                         String description = stringCompose(inputSplit, 1, inputSplit.length - 1);
-                        tasks[taskNum] = new Todo(description);
+                        tasks.add(new Todo(description));
                         printAddedClass();
                     } else if (inputSplit[0].equals("event")) {
                         int breakpoint = find(inputSplit, "/at");
@@ -59,7 +61,7 @@ public class Duke {
                         }
                         String description = stringCompose(inputSplit, 1, breakpoint - 1);
                         String time = stringCompose(inputSplit, breakpoint + 1, inputSplit.length - 1);
-                        tasks[taskNum] = new Event(description, time);
+                        tasks.add(new Event(description, time));
                         printAddedClass();
                     } else if (inputSplit[0].equals("deadline")) {
                         int breakpoint = find(inputSplit, "/by");
@@ -68,7 +70,7 @@ public class Duke {
                         }
                         String description = stringCompose(inputSplit, 1, breakpoint - 1);
                         String time = stringCompose(inputSplit, breakpoint + 1, inputSplit.length - 1);
-                        tasks[taskNum] = new Deadline(description, time);
+                        tasks.add(new Deadline(description, time));
                         printAddedClass();
                     } else {
                         throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -81,7 +83,6 @@ public class Duke {
         }
         print("Bye. Hope to see you again soon!");
     }
-
     private static int find(String[] input,String key) {
         for (int i = 0; i < input.length; i++) {
             if (input[i].equals(key)) {
@@ -105,8 +106,8 @@ public class Duke {
     private static void save() {
         try {
             PrintWriter writer = new PrintWriter("./data/duke.txt");
-            for (int i = 0; i < taskNum; i++) {
-                String profile = tasks[i].getProfile();
+            for (int i = 0; i < tasks.size(); i++) {
+                String profile = tasks.get(i).getProfile();
                 writer.println(profile);
             }
             writer.close();
@@ -117,12 +118,12 @@ public class Duke {
 
     private static void printAddedClass() {
         print("Got it. I've added this task:");
-        print("  " + tasks[taskNum].getDescription());
-        taskNum++;
-        print("Now you have " + taskNum + " tasks in the list.");
+        print("  " + tasks.get(tasks.size() - 1).getDescription());
+        print("Now you have " + tasks.size() + " tasks in the list.");
     }
 
     private static void print(String input) {
         System.out.println("    " + input);
     }
+
 }
