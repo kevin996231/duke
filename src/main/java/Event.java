@@ -28,9 +28,9 @@ public class Event extends Task {
     @Override
     public String getDescription() {
         if (date == null) {
-            return "[E]" + super.getDescription() + " (by: " + time + ")";
+            return "[E]" + super.getDescription() + " (at: " + time + ")";
         } else {
-            return "[E]" + super.getDescription() + " (by: " + date + ")";
+            return "[E]" + super.getDescription() + " (at: " + date + ")";
         }
     }
 
