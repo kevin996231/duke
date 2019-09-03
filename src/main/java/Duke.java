@@ -1,13 +1,9 @@
-import java.io.PrintWriter;
-import java.io.IOException;
-
-
 public class Duke {
-
 
     static TaskList tasks;
     static Ui ui;
     static Parser parser;
+    static Storage storage;
 
     /** main. */
 
@@ -21,6 +17,7 @@ public class Duke {
         tasks = new TaskList();
         ui = new Ui();
         parser = new Parser();
+        storage = new Storage("./data/duke.txt");
 
         ui.welcome();
 
@@ -58,6 +55,7 @@ public class Duke {
                             tasks.deleteTask(number - 1);
                             ui.output("Now you have " + tasks.length() + " tasks in the list.");
                         }
+
                     } else if (inputSplit[0].equals("todo")) {
                         String[] detail = parser.extract(inputSplit,null);
                         tasks.addTask("todo",detail[0],null);
@@ -85,7 +83,7 @@ public class Duke {
                             ui.output("Sorry. No tasks are found.");
                         }
                     }
-                    save();
+                    storage.save(tasks);
                 }
             } catch (DukeException e) {
                 ui.showErrorMessage(e.message);
@@ -93,20 +91,4 @@ public class Duke {
         }
         ui.output("Bye. Hope to see you again soon!");
     }
-
-    private static void save() {
-        try {
-            PrintWriter writer = new PrintWriter("./data/duke.txt");
-            for (int i = 0; i < tasks.length(); i++) {
-                String profile = tasks.getProfile(i);
-                writer.println(profile);
-            }
-            writer.close();
-        } catch (IOException e) {
-            ui.output("No such file.");
-        }
-    }
-
-
-
 }
