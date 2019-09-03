@@ -3,10 +3,13 @@ import java.io.PrintWriter;
 
 public class Storage {
     private String path;
+
     public Storage(String path) {
         this.path = path;
     }
-    public void save(TaskList tasks) throws DukeException{
+    /** Save tasks. */
+
+    public void save(TaskList tasks) throws DukeException {
         try {
             PrintWriter writer = new PrintWriter("./data/duke.txt");
             for (int i = 0; i < tasks.length(); i++) {
