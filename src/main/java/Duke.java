@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Duke {
 
 
-    static ArrayList<Task> tasks = new ArrayList<>();
+    static TaskList tasks;
     /** main. */
 
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class Duke {
         print("Hello! I'm Duke");
         print("What can I do for you?");
         Scanner input = new Scanner(System.in);
-
+        tasks = new TaskList();
         while (true) {
             try {
 
@@ -29,13 +29,13 @@ public class Duke {
                 if (userInput.equals("bye")) {
                     break;
                 } else if (userInput.equals("list")) {
-                    if (tasks.size() == 0) {
+                    if (tasks.length() == 0) {
                         throw new DukeException("There are no tasks.");
                     }
                     print("Here are the tasks in your list:");
-                    for (int i = 0; i < tasks.size(); i++) {
+                    for (int i = 0; i < tasks.length(); i++) {
                         print(Integer.toString(i + 1) + "."
-                                + tasks.get(i).getDescription());
+                                + tasks.getDescription(i));
                     }
                 } else {
                     String[] inputSplit = userInput.split("\\s+");
@@ -52,25 +52,25 @@ public class Duke {
                             throw new DukeException("Index of task must be an integer.");
                         }
 
-                        if (number > tasks.size() || number < 1) {
+                        if (number > tasks.length() || number < 1) {
                             throw new DukeException("This task doesn't exist.");
                         }
                         if (inputSplit[0].equals("done")) {
-                            tasks.get(number - 1).markAsDone();
+                            tasks.markAsDone(number - 1);
                             print("Nice! I've marked this task as done:");
-                            print("  " + tasks.get(number - 1).getDescription());
+                            print("  " + tasks.getDescription(number - 1));
                         } else {
                             print("Noted. I've removed this task:");
-                            print("  " + tasks.get(number - 1).getDescription());
-                            tasks.remove(tasks.get(number - 1));
-                            print("Now you have " + tasks.size() + " tasks in the list.");
+                            print("  " + tasks.getDescription(number - 1));
+                            tasks.deleteTask(number - 1);
+                            print("Now you have " + tasks.length() + " tasks in the list.");
                         }
                     } else if (inputSplit[0].equals("todo")) {
                         if (inputSplit.length == 1) {
                             throw new DukeException("The description of a todo cannot be empty.");
                         }
                         String description = stringCompose(inputSplit, 1, inputSplit.length - 1);
-                        tasks.add(new Todo(description));
+                        tasks.addTask("todo",description,null);
                         printAddedClass();
                     } else if (inputSplit[0].equals("event")) {
                         int breakpoint = find(inputSplit, "/at");
@@ -79,7 +79,7 @@ public class Duke {
                         }
                         String description = stringCompose(inputSplit, 1, breakpoint - 1);
                         String time = stringCompose(inputSplit, breakpoint + 1, inputSplit.length - 1);
-                        tasks.add(new Event(description, time));
+                        tasks.addTask("event",description,time);
                         printAddedClass();
                     } else if (inputSplit[0].equals("deadline")) {
                         int breakpoint = find(inputSplit, "/by");
@@ -88,20 +88,20 @@ public class Duke {
                         }
                         String description = stringCompose(inputSplit, 1, breakpoint - 1);
                         String time = stringCompose(inputSplit, breakpoint + 1, inputSplit.length - 1);
-                        tasks.add(new Deadline(description, time));
+                        tasks.addTask("deadline",description, time);
                         printAddedClass();
                     } else if (inputSplit[0].equals("find")) {
                         Integer count = 0;
                         if (inputSplit.length != 2) {
                             throw new DukeException("Please search exactly one keyword.");
                         }
-                        for (int i = 0; i < tasks.size(); i++) {
-                            if (tasks.get(i).getDescription().contains(inputSplit[1])) {
+                        for (int i = 0; i < tasks.length(); i++) {
+                            if (tasks.getDescription(i).contains(inputSplit[1])) {
                                 count += 1;
                                 if (count == 1) {
                                     print("Here are the matching tasks in your list:");
                                 }
-                                print(Integer.toString(count) + "." + tasks.get(i).getDescription());
+                                print(Integer.toString(count) + "." + tasks.getDescription(i));
                             }
                         }
                         if (count == 0) {
@@ -142,8 +142,8 @@ public class Duke {
     private static void save() {
         try {
             PrintWriter writer = new PrintWriter("./data/duke.txt");
-            for (int i = 0; i < tasks.size(); i++) {
-                String profile = tasks.get(i).getProfile();
+            for (int i = 0; i < tasks.length(); i++) {
+                String profile = tasks.getProfile(i);
                 writer.println(profile);
             }
             writer.close();
@@ -154,8 +154,8 @@ public class Duke {
 
     private static void printAddedClass() {
         print("Got it. I've added this task:");
-        print("  " + tasks.get(tasks.size() - 1).getDescription());
-        print("Now you have " + tasks.size() + " tasks in the list.");
+        print("  " + tasks.getDescription(tasks.length() - 1));
+        print("Now you have " + tasks.length() + " tasks in the list.");
     }
 
     private static void print(String input) {

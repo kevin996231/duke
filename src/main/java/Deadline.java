@@ -20,7 +20,7 @@ public class Deadline extends Task {
             try {
                 this.date = formatter2.parse(time);
             } catch (ParseException e2) {
-                System.out.println("Can't understand as date. Stored as string.");
+                System.out.println("    Can't understand as date. Stored as string.");
             }
         }
     }
