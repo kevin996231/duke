@@ -8,8 +8,11 @@ public class Event extends Task {
     protected Date date = null;
     SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
     SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-    /** event. */
 
+    /** Event, a type of task.
+     * @param description  name of the task.
+     * @param time the time when event occurs.
+     */
     public Event(String description, String time) {
         super(description);
         this.time = time;

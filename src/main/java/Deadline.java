@@ -8,8 +8,11 @@ public class Deadline extends Task {
     protected Date date = null;
     SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy HHmm");
     SimpleDateFormat formatter2 = new SimpleDateFormat("dd/MM/yyyy");
-    /** deadline. */
 
+    /** Deadline, a type of task.
+     * @param description  name of the task.
+     * @param time the time of deadline.
+     */
     public Deadline(String description, String time) {
         super(description);
         this.time = time;

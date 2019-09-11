@@ -1,9 +1,10 @@
 public class Parser {
+    /** Parse input by space. */
     public String[] parse(String line) {
         return line.split("\\s+");
     }
-    /** Check input validation. */
 
+    /** Check input validation. */
     public void checkValidation(String[] input) throws DukeException {
         if (input[0].equals("bye") || input[0].equals("list")) {
             if (input.length != 1) {
@@ -39,8 +40,10 @@ public class Parser {
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
         }
     }
-    /** Find keyword index. */
 
+    /** Find keyword index.
+     * @param key the keyword needs to be found out.
+     */
     public int find(String[] input,String key) {
         for (int i = 0; i < input.length; i++) {
             if (input[i].equals(key)) {
@@ -49,8 +52,10 @@ public class Parser {
         }
         return -1;
     }
-    /** Extract description and time. */
 
+    /** Extract description and time.
+     * @param key the keyword to seperate description and time.
+     */
     public String[] extract(String[] input,String key) throws DukeException {
         String[] detail = new String[5];
         if (key == null) {

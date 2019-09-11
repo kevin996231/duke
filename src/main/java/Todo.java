@@ -1,6 +1,8 @@
 public class Todo extends Task {
 
-
+    /** Todo, a type of task.
+     * @param description  name of the event.
+     */
     public Todo(String description) {
         super(description);
     }
